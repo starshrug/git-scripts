@@ -2,7 +2,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 echo -e "Starshrug's trash git menu:"
-echo -e "1.Check status\n2.Track specified file\n3.Track everything\n4.Commit changes\n5.Push to origin\n6.${RED}Cause eternal destruction of everything${NC}\n7.Exit."
+echo -e "1.Check status\n2.Track specified file\n3.Track everything\n4.Add files and commit changes\n5.Push to origin\n6.Exit."
 read a
 case "$a" in
 
@@ -14,15 +14,22 @@ case "$a" in
     ;;
     3) git add .
     ;;
-    4) echo "Enter comment:"
+    4) git add .
+    echo "Enter comment:"
     read comment
     git commit -m "${comment}"
     ;;
     5) git push origin master
     ;;
-    6) rm -rf *
-    git commit -m "I accidentally deleted everything..."
+    6) exit 
     ;;
-    7) exit 
+    666) echo -e "\n${RED}YOU WILL DELETE ABSOLUTELY EVERYTHING AND WILL NEED TO REVERT, YOU STILL WANT TO DO THIS? [Y]"
+    read plsdont
+    if [ "$plsdont" = 'Y' ]; then
+       rm -rf *
+       commit -m "I accidentally deleted everything..."
+    fi
+    exit
     ;;
+    
 esac
