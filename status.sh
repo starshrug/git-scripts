@@ -35,3 +35,6 @@ fi
 if [ "$newlies" = 1 ]; then
 	echo -e "\t$step.git add . OR git add filename from untracked\n"
 fi
+if [ "$addition" = 0 ] && [ "$moddings" = 0 ] && [ "$newlies" = 0 ]; then
+	echo -e "\tNone.\n"
+fi
