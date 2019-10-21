@@ -55,7 +55,7 @@ if [ "$choice" = 'y' ] || [ "$choice" = 'Y' ]; then
 	$(git add .)
 	echo -e "Enter commit comment: "
 	read commitcomment
-	$(git commit -m "${commitcomment}")
+	git commit -m "${commitcomment}"
 else 
 	echo -e "\nAborted."
 fi
