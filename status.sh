@@ -1,4 +1,8 @@
 
+
+addition=0
+moddings=0
+newlies=0
 trackededit=$(git status | grep 'new' | sed 's/ *changes.*//')
 if [[ "$trackededit" ]]; then
 	echo "	New addition!"
