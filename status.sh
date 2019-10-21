@@ -52,7 +52,7 @@ echo -e "\nWant me to do it for you? \nTHIS WILL RECURSIVELY TRACK AND COMMIT EV
 read choice
 
 if [ "$choice" = 'y' ] || [ "$choice" = 'Y' ]; then
-	$(git add .)
+	git add .
 	echo -e "Enter commit comment: "
 	read commitcomment
 	git commit -m "${commitcomment}"
