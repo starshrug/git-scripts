@@ -35,6 +35,8 @@ fi
 if [ "$moddings" = 1 ]; then
 	echo -e "\t$step.git add . OR git add filename from modified\n"
 	step=$((step+1))
+	echo -e "\t$step.git commit"
+	step=$((step+1))
 fi
 if [ "$newlies" = 1 ]; then
 	echo -e "\t$step.git add . OR git add filename from untracked\n"
