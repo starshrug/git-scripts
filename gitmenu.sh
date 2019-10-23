@@ -28,7 +28,7 @@ case "$a" in
     ;;
     esac
     ;;
-    3) echo -e "1.Commit changes\n2.Track all and commit changes\n3.Push master to remote\n4.Push branch to remote"
+    3) echo -e "1.Commit changes\n2.Track all and commit changes\n3.Push to remote"
     read c
     case "$c" in
     1) echo "Enter comment:"
@@ -40,11 +40,22 @@ case "$a" in
     read comment
     git commit -m "${comment}"
     ;;
-    3) git push origin master
+    3) echo -e "1.Push master to remote\n2.Push branch to origin\n3.Push branch to remote"
+    read originpush
+    case "$originpush" in
+    1) git push origin master
     ;;
-    4) echo "Enter branch name"
+    2) echo "Enter branch name:"
     read branchie
     git push origin ${branchie}
+    ;;
+    3) echo "Enter branch name:"
+    read branchie
+    echo "Enter remote name:"
+    read remotey
+    git push ${remotey} ${branchie}
+    ;;
+    esac
     ;;
     esac
     ;;
