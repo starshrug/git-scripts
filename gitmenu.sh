@@ -6,7 +6,7 @@ RED='\033[0;31m'
        read a
        case "$a" in
 
-           1) echo -e "1.Status\n2.Log3.\n3.Log in oneline"
+           1) echo -e "1.Status\n2.Log\n3.Log in oneline"
     read a1
 case "$a1" in
         1) git status
@@ -22,7 +22,7 @@ case "$a1" in
     case "$b" in
             1) echo "Enter filename"
             read filename
-            git add $ {filename}
+            git add ${filename}
             ;;
             2) git add .
             ;;
@@ -47,30 +47,34 @@ case "$a1" in
                     ;;
                     2) echo "Enter branch name:"
                     read branchie
-                    git push origin $ {branchie}
+                    git push origin ${branchie}
                     ;;
                     3) echo "Enter branch name:"
                     read branchie
                     echo "Enter remote name:"
                     read remotey
-                    git push $ {remotey} $ {branchie}
+                    git push ${remotey} ${branchie}
                     ;;
                     esac
                     ;;
                     esac
                     ;;
-                    4) echo -e "1.List branches\n2.Add branch\n3.Remove branch"
+                    4) echo -e "1.List branches\n2.Switch branch\n3.Add branch\n4.Remove branch"
                     read branch
                 case "$branch" in
                         1) git branch -a
                         ;;
                         2) echo "Enter branch name"
                         read branchname
-                        git branch $ {branchname}
+                        git checkout ${branchname}
                         ;;
                         3) echo "Enter branch name"
                         read branchname
-                        git branch -d $ {branchname}
+                        git branch ${branchname}
+                        ;;
+                        4) echo "Enter branch name"
+                        read branchname
+                        git branch -d ${branchname}
                         ;;
                         esac
                         ;;
@@ -81,7 +85,7 @@ case "$a1" in
                             ;;
                             2) ls
                             read file
-                            nano $ {file}
+                            nano ${file}
                             ;;
                             esac
                             ;;
@@ -90,13 +94,13 @@ case "$a1" in
                         case "$e" in
                                 1) echo -e "Enter git repo link: "
                                 read remotelink
-                                git remote add origin $ {remotelink}
+                                git remote add origin ${remotelink}
                                 ;;
                                 2) echo -e "Enter git repo link: "
                                 read remotelink
                                 echo -e "Enter name for remote: "
                                 read remotename
-                                git remote add $ {remotename} $ {remotelink}
+                                git remote add ${remotename} ${remotelink}
                                 ;;
                                 3) git remote -v
                                 ;;
