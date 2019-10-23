@@ -44,7 +44,7 @@ case "$a" in
     ;;
     4) echo "Enter branch name"
     read branchie
-    git push origin $(branchie)
+    git push origin ${branchie}
     ;;
     esac
     ;;
