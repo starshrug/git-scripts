@@ -2,14 +2,79 @@ RED='\033[0;31m'
     NC='\033[0m'
 
        echo -e "Starshrug's trash git menu:"
-       echo -e "1.Fetching\n2.Tracking\n3.Committing/Origin\n4.Branching\n5.Editing\n6.Remote\n7.Exit"
+       echo -e "1.Fetching\n2.Tracking\n3.Cloning/Committing/Pushing\n4.Branching\n5.Editing\n6.Remote\n7.Exit"
        read a
        case "$a" in
 
            1) echo -e "1.Status\n2.Log\n3.Log in oneline"
     read a1
 case "$a1" in
+        1) echo -e "1.Default status\n2.Abridged"
+        read status
+        case "$status" in
         1) git status
+        ;;
+        2) addition=0
+moddings=0
+newlies=0
+trackededit=$(git status | grep 'new' | sed 's/ *changes.*//')
+if [[ "$trackededit" ]]; then
+	echo "	New addition!"
+	echo "$trackededit"
+	addition=1
+else
+	echo -e "\tNo additions."
+fi
+
+mods=$(git status | grep "modified:" | sed 's/ *Untracked.*//')
+if [[ "$mods" ]]; then
+	echo -e "\n\tNew modifications!"
+	echo "$mods"
+	moddings=1
+else
+	echo -e "\tNo modifications."
+fi
+newfiles=$(git ls-files --others --exclude-standard)
+if [[ "$newfiles" ]]; then
+	echo -e "\n\tNew files!"
+	echo -e "\t$newfiles"
+	newlies=1
+fi
+step=1
+echo -e "\n\tReccomended course of actions:\n"
+if [ "$addition" = 1 ]; then
+	echo -e "\t$step.Files are already being tracked - commit them with 'git commit'\n"
+	step=$((step+1))
+fi
+if [ "$moddings" = 1 ]; then
+	echo -e "\t$step.git add . OR git add filename from modified\n"
+	step=$((step+1))
+	echo -e "\t$step.git commit"
+	step=$((step+1))
+fi
+if [ "$newlies" = 1 ]; then
+	echo -e "\t$step.git add . OR git add filename from untracked\n"
+	echo -e "\t$step.git commit"
+	step=$((step+1))
+fi
+if [ "$addition" = 0 ] && [ "$moddings" = 0 ] && [ "$newlies" = 0 ]; then
+	echo -e "\tNone.\n"
+	exit
+fi
+
+echo -e "\nWant me to do it for you? \nTHIS WILL RECURSIVELY TRACK AND COMMIT EVERYTHING!\n[Y/n] "
+read choice
+
+if [ "$choice" = 'y' ] || [ "$choice" = 'Y' ]; then
+	git add .
+	echo -e "Enter commit comment: "
+	read commitcomment
+	git commit -m "${commitcomment}"
+else 
+	echo -e "\nAborted."
+fi
+;;
+        esac
         ;;
         2) git log
         ;;
@@ -28,9 +93,27 @@ case "$a1" in
             ;;
             esac
             ;;
-            3) echo -e "1.Commit changes\n2.Track all and commit changes\n3.Push to remote"
+            3) echo -e "0.Clone\n1.Commit changes\n2.Track all and commit changes\n3.Push to remote"
             read c
         case "$c" in
+                0) str="$1"
+                    IFS="."
+                    while true; do
+                    if [ "$str" != *".git" ]; then
+                	    echo Invalid link!
+                	    echo Enter a valid link:
+                	    read str
+                	    read -ra ADDR <<< "$str"
+                	if [ "${ADDR[2]}" == "git" ]; then
+            		    git clone "$str"
+            		    return
+                	fi
+                    else
+                    	git clone "$str"
+                	return
+                    fi
+                    done
+                ;;
                 1) echo "Enter comment:"
                 read comment
                 git commit -m "${comment}"
